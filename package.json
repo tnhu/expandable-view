@@ -1,0 +1,13 @@
+{
+  "name": "expandable-view",
+  "version": "0.0.2",
+  "description": "Expandable view web component",
+  "main": "index.js",
+  "style": "./dist/styles.css",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Tan Nhu",
+  "license": "MIT"
+}

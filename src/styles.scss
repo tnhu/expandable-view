@@ -1,0 +1,55 @@
+expandable-view {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  transform: translate3d(0, 0, 0); /* make fixed position related to parent happen. @see http://bit.ly/2iJepU4 */
+
+  button {
+    position: fixed;
+    bottom: 22px;
+    height: 30px;
+    width: 20px;
+    border: none;
+    padding: 0;
+    background: #fff var(--icon-prev) no-repeat center center; /* can't use var(--color-bg) here */
+    text-indent: -9999px;
+    cursor: pointer;
+    display: none;
+
+    &:last-child {
+      background: #fff var(--icon-next) no-repeat center center; /* can't use var(--color-bg) here */
+      right: 0;
+    }
+
+    &:hover {
+      background-image: var(--icon-prev-hover);
+
+      &:last-child {
+        background-image: var(--icon-next-hover);
+      }
+    }
+  }
+
+  &[overflow] {
+    button {
+      display: inline-block;
+    }
+  }
+}
+
+expandable-view-content {
+  display: inline-flex;
+  width: 99999px; /* This value will be set by JS based on the position of the last child */
+}
+
+expandable-view-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: block;
+  overflow-y: hidden;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
