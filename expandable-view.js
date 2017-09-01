@@ -9,9 +9,9 @@ function update(view) {
   var content = wrapper && wrapper.firstChild
   var scrollIncrement = parseInt(view.getAttribute('scroll-increment')) || 800
   var scrollDuration = parseInt(view.getAttribute('scroll-duration')) || 1200
+  var lastChild = content && content.lastChild
 
   if (lastChild) {
-    var lastChild = content && content.lastChild
     var childrenWidth = lastChild.offsetLeft + lastChild.offsetWidth
     var viewWidth = parseInt(getComputedStyle(view).width)
     var newContentWidth = childrenWidth + 'px'
@@ -39,7 +39,6 @@ function update(view) {
       // These values need to be calculated again for dynamic children
       var scrollLeft = wrapper.scrollLeft
       var lastChild = content && content.lastChild
-      var childrenWidth = lastChild.offsetLeft + lastChild.offsetWidth
       var viewWidth = parseInt(getComputedStyle(view).width)
 
       if (scrollLeft > 0) {
@@ -51,6 +50,8 @@ function update(view) {
           view.removeAttribute(prev)
         }
       }
+
+      var childrenWidth = lastChild && (lastChild.offsetLeft + lastChild.offsetWidth) || 0
 
       if (scrollLeft + viewWidth < childrenWidth) {
         if (!view.hasAttribute(next)) {
@@ -102,3 +103,4 @@ module.exports = {
 
 // TODO:
 // - :scope selector might not work under Edge
+// - update when window.resize?
