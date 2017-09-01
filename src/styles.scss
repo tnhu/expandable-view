@@ -4,7 +4,7 @@ expandable-view {
   position: relative;
   transform: translate3d(0, 0, 0); /* make fixed position related to parent happen. @see http://bit.ly/2iJepU4 */
 
-  button {
+  > button {
     position: fixed;
     bottom: 22px;
     height: 30px;
@@ -30,10 +30,9 @@ expandable-view {
     }
   }
 
-  &[overflow] {
-    button {
+  &[prev] button:first-of-type,
+  &[next] button:last-of-type {
       display: inline-block;
-    }
   }
 }
 
@@ -47,6 +46,7 @@ expandable-view-wrapper {
   height: 100%;
   overflow: auto;
   display: block;
+  overflow: -moz-scrollbars-none;
   overflow-y: hidden;
 
   &::-webkit-scrollbar {

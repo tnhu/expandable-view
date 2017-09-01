@@ -1,13 +1,24 @@
 {
   "name": "expandable-view",
-  "version": "0.0.2",
+  "version": "1.0.3",
   "description": "Expandable view web component",
-  "main": "index.js",
-  "style": "./dist/styles.css",
+  "main": "expandable-view.js",
+  "style": "styles.css",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "scss": "node-sass src/*.scss -o ./",
+    "build": "npm run scss",
+    "watch": "chokidar 'src/*.js' 'src/*.scss' -c 'npm run build'",
+    "clean": "rm -rf ./*.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tnhu/expandable-view.git"
   },
   "keywords": [],
   "author": "Tan Nhu",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "chokidar-cli": "^1.2.0",
+    "node-sass": "^3.10.0"
+  }
 }
