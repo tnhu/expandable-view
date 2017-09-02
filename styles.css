@@ -24,6 +24,8 @@ expandable-view {
       background-image: var(--icon-prev-hover); }
       expandable-view > button:hover:last-child {
         background-image: var(--icon-next-hover); }
+    expandable-view > button:focus {
+      outline: 0; }
   expandable-view[prev] button:first-of-type,
   expandable-view[next] button:last-of-type {
     display: inline-block; }

@@ -28,6 +28,10 @@ expandable-view {
         background-image: var(--icon-next-hover);
       }
     }
+
+    &:focus {
+      outline: 0;
+    }
   }
 
   &[prev] button:first-of-type,
