@@ -4,6 +4,10 @@ function scroll(element, increment, duration) {
 }
 
 function update(view) {
+  if (!view) {
+    return
+  }
+
   var overflow = 'overflow'
   var wrapper = view && view.firstChild
   var content = wrapper && wrapper.firstChild
