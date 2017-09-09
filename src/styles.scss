@@ -52,6 +52,7 @@ expandable-view-wrapper {
   display: block;
   overflow: -moz-scrollbars-none;
   overflow-y: hidden;
+  scroll-behavior: smooth;
 
   &::-webkit-scrollbar {
     display: none;

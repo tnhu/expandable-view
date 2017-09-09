@@ -1,5 +1,4 @@
 function scroll(element, increment, duration) {
-  // TODO Add animation
   element.scrollLeft += increment
 }
 
@@ -106,5 +105,6 @@ module.exports = {
 }
 
 // TODO:
+// - animation when scrolling (prev, next buttons clicked)
 // - :scope selector might not work under Edge
 // - update when window.resize?
