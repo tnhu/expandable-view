@@ -41,6 +41,7 @@ expandable-view-wrapper {
   overflow: auto;
   display: block;
   overflow: -moz-scrollbars-none;
-  overflow-y: hidden; }
+  overflow-y: hidden;
+  scroll-behavior: smooth; }
   expandable-view-wrapper::-webkit-scrollbar {
     display: none; }
