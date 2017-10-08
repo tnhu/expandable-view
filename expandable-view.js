@@ -2,7 +2,7 @@ function scroll(element, increment, duration) {
   element.scrollLeft += increment
 }
 
-function update(view) {
+function update(view, forceUpdate) {
   if (!view) {
     return
   }
@@ -14,12 +14,17 @@ function update(view) {
   var scrollDuration = parseInt(view.getAttribute('scroll-duration')) || 1200
   var lastChild = content && content.lastChild
 
+  // Reset content's width so content's children have a chance to expand themselves
+  if (forceUpdate) {
+    content.style.width = '99999px';
+  }
+
   if (lastChild) {
     var childrenWidth = lastChild.offsetLeft + lastChild.offsetWidth
     var viewWidth = parseInt(getComputedStyle(view).width)
     var newContentWidth = childrenWidth + 'px'
 
-    if (content.expandableWidth !== newContentWidth) { // only update if different
+    if (forceUpdate || content.expandableWidth !== newContentWidth) { // only update if different or forceUpdate is set to true
       content.expandableWidth = content.style.width = newContentWidth
     }
 
@@ -30,42 +35,43 @@ function update(view) {
     }
   }
 
-  if (!view.isEventListenersAdded) {
-    var prev = 'prev'
-    var next = 'next'
-    view.isEventListenersAdded = true
+  var prev = 'prev'
+  var next = 'next'
 
-    //
-    // Handle scrolling using mouse/track pad
-    //
-    var scrollEventHandler = function() {
-      // These values need to be calculated again for dynamic children
-      var scrollLeft = wrapper.scrollLeft
-      var lastChild = content && content.lastChild
-      var viewWidth = parseInt(getComputedStyle(view).width)
+  //
+  // Handle scrolling using mouse/track pad
+  //
+  var scrollEventHandler = function() {
+    // These values need to be calculated again for dynamic children
+    var scrollLeft = wrapper.scrollLeft
+    var lastChild = content && content.lastChild
+    var viewWidth = parseInt(getComputedStyle(view).width)
 
-      if (scrollLeft > 0) {
-        if (!view.hasAttribute(prev)) {
-          view.setAttribute(prev, true)
-        }
-      } else {
-        if (view.hasAttribute(prev)) {
-          view.removeAttribute(prev)
-        }
+    if (scrollLeft > 0) {
+      if (!view.hasAttribute(prev)) {
+        view.setAttribute(prev, true)
       }
-
-      var childrenWidth = lastChild && (lastChild.offsetLeft + lastChild.offsetWidth) || 0
-
-      if (scrollLeft + viewWidth < childrenWidth) {
-        if (!view.hasAttribute(next)) {
-          view.setAttribute(next, true)
-        }
-      } else {
-        if (view.hasAttribute(next)) {
-          view.removeAttribute(next)
-        }
+    } else {
+      if (view.hasAttribute(prev)) {
+        view.removeAttribute(prev)
       }
     }
+
+    var childrenWidth = lastChild && (lastChild.offsetLeft + lastChild.offsetWidth) || 0
+
+    if (scrollLeft + viewWidth < childrenWidth) {
+      if (!view.hasAttribute(next)) {
+        view.setAttribute(next, true)
+      }
+    } else {
+      if (view.hasAttribute(next)) {
+        view.removeAttribute(next)
+      }
+    }
+  }
+
+  if (!view.isEventListenersAdded) {
+    view.isEventListenersAdded = true
 
     // TODO: ':scope' is not working in IE/Edge?
     var prevButton = view.querySelector(':scope > button:first-of-type')
@@ -92,6 +98,8 @@ function update(view) {
 
       delete view.isEventListenersAdded
     }
+  } else {
+    scrollEventHandler() // trigger scroll event to re-calculate prev/next buttons's visibility
   }
 }
 

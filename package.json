@@ -1,6 +1,6 @@
 {
   "name": "expandable-view",
-  "version": "1.0.6",
+  "version": "1.0.10",
   "description": "Expandable view web component",
   "main": "expandable-view.js",
   "style": "styles.css",
